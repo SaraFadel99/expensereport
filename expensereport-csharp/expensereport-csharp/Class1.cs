@@ -56,7 +56,6 @@ namespace expensereport_csharp
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST)
             {
                 isAmeal = true;
-               // mealExpenses += expense.amount;
             }
 
             return (expense.amount, isAmeal);
