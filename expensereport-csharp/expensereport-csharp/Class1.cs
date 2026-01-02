@@ -22,10 +22,17 @@ namespace expensereport_csharp
             int mealExpenses = 0;
 
             Console.WriteLine("Expenses " + DateTime.Now);
-            
+
             foreach (Expense expense in expenses)
             {
-                calcExpensePerItem(ref total, ref mealExpenses, expense);
+                (int expense, bool isAmeal) expenseInfo = calcExpensePerItem( expense);
+                mealExpenses += expenseInfo.isAmeal ? expenseInfo.expense : 0;
+                total += expenseInfo.expense;
+            }
+
+            foreach (Expense expense in expenses)
+            {
+               // calcExpensePerItem(ref total, ref mealExpenses, expense);
 
                 String expenseName = "";
                 expenseName = GetExpenseName(expense, expenseName);
@@ -42,15 +49,16 @@ namespace expensereport_csharp
 
 
 
-        private static void calcExpensePerItem(ref int total, ref int mealExpenses, Expense expense)
+        private static (int amount, bool isAmeal) calcExpensePerItem(Expense expense)
         {
-            
+            bool isAmeal=false;
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST)
             {
-                mealExpenses += expense.amount;
+                isAmeal = true;
+               // mealExpenses += expense.amount;
             }
 
-            total += expense.amount;
+            return (expense.amount, isAmeal);
         }
 
         private static string validateExpensesMarker(Expense expense)
