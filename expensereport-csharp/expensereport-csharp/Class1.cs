@@ -18,9 +18,14 @@ namespace expensereport_csharp
     {
         public void PrintReport(List<Expense> expenses)
         {
-            Console.WriteLine("Expenses " + DateTime.Now);
+            printReportHeader();
             printExpenseEntries(expenses);
             printTotalExpenses(expenses);
+        }
+
+        private static void printReportHeader()
+        {
+            Console.WriteLine("Expenses " + DateTime.Now);
         }
 
         private static void printExpenseEntries(List<Expense> expenses)
