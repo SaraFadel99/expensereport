@@ -25,7 +25,7 @@ namespace expensereport_csharp
 
             foreach (Expense expense in expenses)
             {
-                (int expense, bool isAmeal) expenseInfo = calcExpensePerItem( expense);
+                (int expense, bool isAmeal) expenseInfo = calcExpensePerItem(expense);
                 mealExpenses += expenseInfo.isAmeal ? expenseInfo.expense : 0;
                 total += expenseInfo.expense;
             }
@@ -35,7 +35,11 @@ namespace expensereport_csharp
                 printExpenseEntry(expense);
 
             }
+            printTotalExpenses(total, mealExpenses);
+        }
 
+        private static void printTotalExpenses(int total, int mealExpenses)
+        {
             Console.WriteLine("Meal expenses: " + mealExpenses);
             Console.WriteLine("Total expenses: " + total);
         }
