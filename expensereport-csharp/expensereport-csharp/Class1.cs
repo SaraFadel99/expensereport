@@ -18,17 +18,19 @@ namespace expensereport_csharp
     {
         public void PrintReport(List<Expense> expenses)
         {
- 
             Console.WriteLine("Expenses " + DateTime.Now);
             foreach (Expense expense in expenses)
             {
                 printExpenseEntry(expense);
-
             }
 
-            (int mealExpenses, int total) totalExpenses =  calculateExpenseTotals(expenses);
+            printTotalExpenses(expenses);
+        }
 
-       
+        private static void printTotalExpenses(List<Expense> expenses)
+        {
+            (int mealExpenses, int total) totalExpenses = calculateExpenseTotals(expenses);
+
             printTotalExpenses(totalExpenses.total, totalExpenses.mealExpenses);
         }
 
