@@ -32,8 +32,6 @@ namespace expensereport_csharp
 
             foreach (Expense expense in expenses)
             {
-               // calcExpensePerItem(ref total, ref mealExpenses, expense);
-
                 String expenseName = "";
                 expenseName = GetExpenseName(expense, expenseName);
 
