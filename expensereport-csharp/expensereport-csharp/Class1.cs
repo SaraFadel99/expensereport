@@ -20,14 +20,15 @@ namespace expensereport_csharp
         {
  
             Console.WriteLine("Expenses " + DateTime.Now);
-
-            (int mealExpenses, int total) totalExpenses =  calculateExpenseTotals(expenses);
-
             foreach (Expense expense in expenses)
             {
                 printExpenseEntry(expense);
 
             }
+
+            (int mealExpenses, int total) totalExpenses =  calculateExpenseTotals(expenses);
+
+       
             printTotalExpenses(totalExpenses.total, totalExpenses.mealExpenses);
         }
 
