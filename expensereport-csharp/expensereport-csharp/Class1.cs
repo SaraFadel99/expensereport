@@ -18,12 +18,10 @@ namespace expensereport_csharp
     {
         public void PrintReport(List<Expense> expenses)
         {
-            int total = 0;
-            int mealExpenses = 0;
-
+ 
             Console.WriteLine("Expenses " + DateTime.Now);
 
-           (int mealExpenses, int total) totalExpenses =  calculateExpenseTotals(expenses);
+            (int mealExpenses, int total) totalExpenses =  calculateExpenseTotals(expenses);
 
             foreach (Expense expense in expenses)
             {
