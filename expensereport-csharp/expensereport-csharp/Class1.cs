@@ -25,10 +25,7 @@ namespace expensereport_csharp
             
             foreach (Expense expense in expenses)
             {
-                if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST)
-                {
-                    mealExpenses += expense.amount;
-                }
+                calcExpensesValue(ref total, ref mealExpenses, expense);
 
                 String expenseName = "";
                 expenseName = GetExpenseName(expense, expenseName);
@@ -37,11 +34,20 @@ namespace expensereport_csharp
 
                 Console.WriteLine(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
 
-                total += expense.amount;
             }
 
             Console.WriteLine("Meal expenses: " + mealExpenses);
             Console.WriteLine("Total expenses: " + total);
+        }
+
+        private static void calcExpensesValue(ref int total, ref int mealExpenses, Expense expense)
+        {
+            if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST)
+            {
+                mealExpenses += expense.amount;
+            }
+
+            total += expense.amount;
         }
 
         private static string validateExpensesMarker(Expense expense)
