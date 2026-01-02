@@ -32,12 +32,7 @@ namespace expensereport_csharp
 
             foreach (Expense expense in expenses)
             {
-                String expenseName = "";
-                expenseName = GetExpenseName(expense, expenseName);
-
-                string mealOverExpensesMarker = validateExpensesMarker(expense);
-
-                Console.WriteLine(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+                printExpenseEntry(expense);
 
             }
 
@@ -45,7 +40,15 @@ namespace expensereport_csharp
             Console.WriteLine("Total expenses: " + total);
         }
 
+        private static void printExpenseEntry(Expense expense)
+        {
+            String expenseName = "";
+            expenseName = GetExpenseName(expense, expenseName);
 
+            string mealOverExpensesMarker = validateExpensesMarker(expense);
+
+            Console.WriteLine(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+        }
 
         private static (int amount, bool isAmeal) calcExpensePerItem(Expense expense)
         {
