@@ -23,19 +23,26 @@ namespace expensereport_csharp
 
             Console.WriteLine("Expenses " + DateTime.Now);
 
-            foreach (Expense expense in expenses)
-            {
-                (int expense, bool isAmeal) expenseInfo = calcExpensePerItem(expense);
-                mealExpenses += expenseInfo.isAmeal ? expenseInfo.expense : 0;
-                total += expenseInfo.expense;
-            }
+           (int mealExpenses, int total) totalExpenses =  calculateExpenseTotals(expenses);
 
             foreach (Expense expense in expenses)
             {
                 printExpenseEntry(expense);
 
             }
-            printTotalExpenses(total, mealExpenses);
+            printTotalExpenses(totalExpenses.total, totalExpenses.mealExpenses);
+        }
+
+        private static (int mealExpenses, int total) calculateExpenseTotals(List<Expense> expenses)
+        {
+            int mealExpenses= 0; int total=0;
+            foreach (Expense expense in expenses)
+            {
+                (int expense, bool isAmeal) expenseInfo = calcExpensePerItem(expense);
+                mealExpenses += expenseInfo.isAmeal ? expenseInfo.expense : 0;
+                total += expenseInfo.expense;
+            }
+            return (mealExpenses,total);
         }
 
         private static void printTotalExpenses(int total, int mealExpenses)
