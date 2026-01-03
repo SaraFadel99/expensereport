@@ -54,7 +54,7 @@ namespace Tests
                                  $"Dinner\t{expenses[1].amount}\t \n" +
                                  $"Car Rental\t{expenses[2].amount}\t \n" +
                                  $"Meal expenses:\t{getMealsAmount}\n" +
-                                 $"Total expenses:\t{total}";;
+                                 $"Total expenses:\t{total}";
 
             Assert.AreEqual(expectedOutput, actualOutput);
         }
@@ -71,19 +71,21 @@ namespace Tests
               new Expense { type = ExpenseType.CAR_RENTAL, amount = 2 },
               new Expense { type = ExpenseType.BREAKFAST, amount = 7000 }
             };
-            report.PrintReport(expenses);
-            string[] lines = _consoleOutput.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            Assert.That(lines[0], Does.StartWith("Expenses "));
-            Assert.That(lines[1], Is.EqualTo("Breakfast" + "\t" + expenses[0].amount + "\t "));
-            Assert.That(lines[2], Is.EqualTo("Dinner" + "\t" + expenses[1].amount + "\t "));
-            Assert.That(lines[3], Is.EqualTo("Car Rental" + "\t" + expenses[2].amount + "\t "));
-            Assert.That(lines[4], Is.EqualTo("Breakfast" + "\t" + expenses[3].amount + "\tX"));
-            int getMealsAmount = expenses.Where(m => m.type != ExpenseType.CAR_RENTAL).Sum(mealAmount=> mealAmount.amount);
-            int total = expenses.Sum(e => e.amount);
-            Assert.That(lines[5], Is.EqualTo($"Meal expenses: {getMealsAmount}"));
-            Assert.That(lines[6], Is.EqualTo($"Total expenses: {total}"));
-        }
+            DateTime now = DateTime.Now;
+            report.PrintReport(expenses, now);
+            string lines = _consoleOutput.ToString();
 
+            string actualOutput = _consoleOutput.ToString().Replace("\r\n", "\n").TrimEnd('\n');
+            int getMealsAmount = expenses.Where(m => m.type != ExpenseType.CAR_RENTAL).Sum(mealAmount => mealAmount.amount);
+            int total = expenses.Sum(e => e.amount);
+            string expectedOutput = $"Expenses {now.ToString()}\n" +
+                                 $"Breakfast\t{expenses[0].amount}\t \n" +
+                                 $"Dinner\t{expenses[1].amount}\t \n" +
+                                 $"Car Rental\t{expenses[2].amount}\t \n" +
+                                 $"Breakfast" + "\t" + expenses[3].amount + "\tX"+
+                                 $"Meal expenses:\t{getMealsAmount}\n" +
+                                 $"Total expenses:\t{total}";
+        }
 
         [Test]
         public void ExpenseReportEmptyExpenseList()
@@ -94,8 +96,8 @@ namespace Tests
             report.PrintReport(expenses);
             string[] lines = _consoleOutput.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             Assert.That(lines[0], Does.StartWith("Expenses "));
-            Assert.That(lines[1], Is.EqualTo($"Meal expenses: {0}"));
-            Assert.That(lines[2], Is.EqualTo($"Total expenses: {0}"));
+            Assert.That(lines[1], Is.EqualTo($"Meal expenses:\t{0}"));
+            Assert.That(lines[2], Is.EqualTo($"Total expenses:\t{0}"));
         }
 
     }
