@@ -33,7 +33,7 @@ namespace expensereport_csharp
             string allEntriesExpenses = "";
             foreach (Expense expense in expenses)
             {
-                allEntriesExpenses += printExpenseEntry(expense) + "\n";
+                allEntriesExpenses += generateExpenseEntry(expense) + "\n";
             }
             Console.WriteLine(allEntriesExpenses.TrimEnd('\n'));
         }
@@ -63,7 +63,7 @@ namespace expensereport_csharp
             Console.WriteLine("Total expenses:\t" + total);
         }
 
-        private static string printExpenseEntry(Expense expense)
+        private static string generateExpenseEntry(Expense expense)
         {
             String expenseName = "";
             expenseName = GetExpenseName(expense, expenseName);
