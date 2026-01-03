@@ -21,7 +21,7 @@ namespace expensereport_csharp
             printReportHeader();
           //  printExpenseEntries(expenses);
             Console.WriteLine(generateExpenseEntries(expenses));
-            printTotalExpenses(expenses);
+            Console.WriteLine(printTotalExpenses(expenses));
         }
 
         private static void printReportHeader()
@@ -40,11 +40,11 @@ namespace expensereport_csharp
            // Console.WriteLine(allEntriesExpenses.TrimEnd('\n'));
         }
 
-        private static void printTotalExpenses(List<Expense> expenses)
+        private static string printTotalExpenses(List<Expense> expenses)
         {
             (int mealExpenses, int total) totalExpenses = calculateExpenseTotals(expenses);
 
-            printTotalExpenses(totalExpenses.total, totalExpenses.mealExpenses);
+            return printTotalExpenses(totalExpenses.total, totalExpenses.mealExpenses);
         }
 
         private static (int mealExpenses, int total) calculateExpenseTotals(List<Expense> expenses)
@@ -59,10 +59,14 @@ namespace expensereport_csharp
             return (mealExpenses,total);
         }
 
-        private static void printTotalExpenses(int total, int mealExpenses)
+        private static string printTotalExpenses(int total, int mealExpenses)
         {
-            Console.WriteLine("Meal expenses:\t" + mealExpenses);
-            Console.WriteLine("Total expenses:\t" + total);
+            //string totalExpenses = "";
+            string totalExpenses = "Meal expenses:\t" + mealExpenses + "\n";
+            totalExpenses += "Total expenses:\t" + total;
+            return totalExpenses;
+            //Console.WriteLine("Meal expenses:\t" + mealExpenses);
+          //  Console.WriteLine("Total expenses:\t" + total);
         }
 
         private static string generateExpenseEntry(Expense expense)
