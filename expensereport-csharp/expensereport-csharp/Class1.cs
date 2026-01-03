@@ -6,7 +6,7 @@ namespace expensereport_csharp
 {
     public enum ExpenseType
     {
-        DINNER, BREAKFAST, CAR_RENTAL
+        DINNER, BREAKFAST, LUNCH,CAR_RENTAL
     }
 
     public class Expense
@@ -22,6 +22,7 @@ namespace expensereport_csharp
         {
             { ExpenseType.DINNER, 5000 },
             { ExpenseType.BREAKFAST, 1000 },
+            { ExpenseType.LUNCH,2000},
             { ExpenseType.CAR_RENTAL, int.MaxValue }
          };
 
@@ -105,7 +106,8 @@ namespace expensereport_csharp
         private static string validateExpensesMarker(Expense expense)
         {
             string checkMarker = expense.type == ExpenseType.DINNER && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.DINNER] ||
-                                  expense.type == ExpenseType.BREAKFAST && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.BREAKFAST] ? "X" : " ";
+                                  expense.type == ExpenseType.BREAKFAST && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.BREAKFAST]||
+                                  expense.type == ExpenseType.LUNCH && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.LUNCH] ? "X" : " ";
             return checkMarker;
         }
 
