@@ -19,7 +19,7 @@ namespace expensereport_csharp
         public void PrintReport(List<Expense> expenses, DateTime? dateTime=null)
         {
             printReportHeader();
-            printExpenseEntries(expenses);
+          //  printExpenseEntries(expenses);
             Console.WriteLine(printExpenseEntries(expenses));
             printTotalExpenses(expenses);
         }
