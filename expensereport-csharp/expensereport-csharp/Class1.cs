@@ -121,6 +121,9 @@ namespace expensereport_csharp
                 case ExpenseType.BREAKFAST:
                     expenseName = "Breakfast";
                     break;
+                case ExpenseType.LUNCH:
+                    expenseName = "Lunch";
+                    break;
                 case ExpenseType.CAR_RENTAL:
                     expenseName = "Car Rental";
                     break;
