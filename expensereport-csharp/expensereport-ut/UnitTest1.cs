@@ -52,7 +52,7 @@ namespace Tests
             string expectedOutput = $"Expenses {now.ToString()}\n" +
                                  $"Breakfast\t{expenses[0].amount}\t \n" +
                                  $"Dinner\t{expenses[1].amount}\t \n" +
-                                 $"Car Rental\t{expenses[2].amount}\t \n" +
+                                 $"Car Rental\t{expenses[2].amount}\t " +
                                  $"Meal expenses:\t{getMealsAmount}\n" +
                                  $"Total expenses:\t{total}";
 
