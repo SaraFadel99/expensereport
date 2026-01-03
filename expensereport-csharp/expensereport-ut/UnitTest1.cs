@@ -93,11 +93,13 @@ namespace Tests
             var report = new ExpenseReport();
 
             List<Expense> expenses = new List<Expense>{  };
-            report.PrintReport(expenses);
-            string[] lines = _consoleOutput.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            Assert.That(lines[0], Does.StartWith("Expenses "));
-            Assert.That(lines[1], Is.EqualTo($"Meal expenses:\t{0}"));
-            Assert.That(lines[2], Is.EqualTo($"Total expenses:\t{0}"));
+            DateTime now = DateTime.Now;
+            report.PrintReport(expenses,now);
+            string actualOutput = _consoleOutput.ToString().Replace("\r\n", "\n").TrimEnd('\n');
+            string expectedOutput = $"Expenses {now.ToString()}\n" +
+                                    $"Meal expenses:\t{0}\n" +
+                                    $"Total expenses:\t{0}";
+            Assert.AreEqual(expectedOutput, actualOutput);
         }
 
     }
