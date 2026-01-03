@@ -30,10 +30,12 @@ namespace expensereport_csharp
 
         private static void printExpenseEntries(List<Expense> expenses)
         {
+            string allEntriesExpenses = "";
             foreach (Expense expense in expenses)
             {
-                printExpenseEntry(expense);
+                allEntriesExpenses += printExpenseEntry(expense) + "\n";
             }
+            Console.WriteLine(allEntriesExpenses.TrimEnd('\n'));
         }
 
         private static void printTotalExpenses(List<Expense> expenses)
@@ -61,14 +63,16 @@ namespace expensereport_csharp
             Console.WriteLine("Total expenses:\t" + total);
         }
 
-        private static void printExpenseEntry(Expense expense)
+        private static string printExpenseEntry(Expense expense)
         {
             String expenseName = "";
             expenseName = GetExpenseName(expense, expenseName);
 
             string mealOverExpensesMarker = validateExpensesMarker(expense);
-
-            Console.WriteLine(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+            string expenseEntryData = expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker;
+            return expenseEntryData; 
+        
+           // Console.WriteLine(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
         }
 
         private static (int amount, bool isAmeal) calcExpensePerItem(Expense expense)
