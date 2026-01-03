@@ -16,16 +16,17 @@ namespace expensereport_csharp
 
     public class ExpenseReport
     {
-        public void PrintReport(List<Expense> expenses, DateTime? dateTime=null)
+        public void PrintReport(List<Expense> expenses, DateTime? currentime=null)
         {
-            printReportHeader();
+          //  DateTime time = currentime != null ? currentime : DateTime.Now;
+            Console.WriteLine(printReportHeader(DateTime.Now));
             Console.WriteLine(generateExpenseEntries(expenses));
             Console.WriteLine(generateTotalExpenses(expenses));
         }
 
-        private static void printReportHeader()
+        private static string printReportHeader(DateTime time)
         {
-            Console.WriteLine("Expenses " + DateTime.Now);
+            return "Expenses " +time ;
         }
 
         private static string generateExpenseEntries(List<Expense> expenses)
