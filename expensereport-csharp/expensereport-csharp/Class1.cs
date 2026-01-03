@@ -44,7 +44,7 @@ namespace expensereport_csharp
         {
             (int mealExpenses, int total) totalExpenses = calculateExpenseTotals(expenses);
 
-            return printTotalExpenses(totalExpenses.total, totalExpenses.mealExpenses);
+            return  genTotalsEntries(totalExpenses.total, totalExpenses.mealExpenses);
         }
 
         private static (int mealExpenses, int total) calculateExpenseTotals(List<Expense> expenses)
@@ -59,7 +59,7 @@ namespace expensereport_csharp
             return (mealExpenses,total);
         }
 
-        private static string printTotalExpenses(int total, int mealExpenses)
+        private static string  genTotalsEntries(int total, int mealExpenses)
         {
             //string totalExpenses = "";
             string totalExpenses = "Meal expenses:\t" + mealExpenses + "\n";
