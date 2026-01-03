@@ -21,7 +21,7 @@ namespace expensereport_csharp
             printReportHeader();
           //  printExpenseEntries(expenses);
             Console.WriteLine(generateExpenseEntries(expenses));
-            Console.WriteLine(printTotalExpenses(expenses));
+            Console.WriteLine(generateTotalExpenses(expenses));
         }
 
         private static void printReportHeader()
@@ -40,7 +40,7 @@ namespace expensereport_csharp
            // Console.WriteLine(allEntriesExpenses.TrimEnd('\n'));
         }
 
-        private static string printTotalExpenses(List<Expense> expenses)
+        private static string generateTotalExpenses(List<Expense> expenses)
         {
             (int mealExpenses, int total) totalExpenses = calculateExpenseTotals(expenses);
 
