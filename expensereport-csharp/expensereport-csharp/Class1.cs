@@ -1,4 +1,5 @@
-﻿using System;
+﻿using expensereport_csharp;
+using System;
 using System.Collections.Generic;
 
 namespace expensereport_csharp
@@ -16,6 +17,14 @@ namespace expensereport_csharp
 
     public class ExpenseReport
     {
+
+        private static readonly Dictionary<ExpenseType, int> ExpenseTypeMaxAmounts = new Dictionary<ExpenseType, int>
+        {
+            { ExpenseType.DINNER, 5000 },
+            { ExpenseType.BREAKFAST, 1000 },
+            { ExpenseType.CAR_RENTAL, int.MaxValue }
+         };
+
         public void PrintReport(List<Expense> expenses, DateTime? currentime=null)
         {
             //  DateTime time = currentime != null ? currentime : DateTime.Now;
@@ -24,8 +33,8 @@ namespace expensereport_csharp
 
         private static string generateReport(List<Expense> expenses)
         {
-          return generateReportHeader(DateTime.Now)+ "\n"+
-          generateExpenseEntries(expenses)+
+            return generateReportHeader(DateTime.Now)+ "\n"+
+           generateExpenseEntries(expenses)+
            generateTotalExpenses(expenses);
         }
 
@@ -41,6 +50,7 @@ namespace expensereport_csharp
             {
                 allEntriesExpenses += generateExpenseEntry(expense) + "\n";
             }
+
             return allEntriesExpenses.TrimEnd('\n');
         }
 
@@ -79,8 +89,6 @@ namespace expensereport_csharp
             string mealOverExpensesMarker = validateExpensesMarker(expense);
             string expenseEntryData = expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker;
             return expenseEntryData; 
-        
-           // Console.WriteLine(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
         }
 
         private static (int amount, bool isAmeal) calcExpensePerItem(Expense expense)
@@ -96,8 +104,8 @@ namespace expensereport_csharp
 
         private static string validateExpensesMarker(Expense expense)
         {
-            string checkMarker = expense.type == ExpenseType.DINNER && expense.amount > 5000 ||
-                                  expense.type == ExpenseType.BREAKFAST && expense.amount > 1000? "X" : " ";
+            string checkMarker = expense.type == ExpenseType.DINNER && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.DINNER] ||
+                                  expense.type == ExpenseType.BREAKFAST && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.BREAKFAST] ? "X" : " ";
             return checkMarker;
         }
 
