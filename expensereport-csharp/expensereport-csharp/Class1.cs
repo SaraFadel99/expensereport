@@ -20,7 +20,7 @@ namespace expensereport_csharp
         {
             printReportHeader();
           //  printExpenseEntries(expenses);
-            Console.WriteLine(printExpenseEntries(expenses));
+            Console.WriteLine(generateExpenseEntries(expenses));
             printTotalExpenses(expenses);
         }
 
@@ -29,7 +29,7 @@ namespace expensereport_csharp
             Console.WriteLine("Expenses " + DateTime.Now);
         }
 
-        private static string printExpenseEntries(List<Expense> expenses)
+        private static string generateExpenseEntries(List<Expense> expenses)
         {
             string allEntriesExpenses = "";
             foreach (Expense expense in expenses)
