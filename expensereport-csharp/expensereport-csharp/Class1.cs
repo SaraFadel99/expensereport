@@ -16,7 +16,7 @@ namespace expensereport_csharp
 
     public class ExpenseReport
     {
-        public void PrintReport(List<Expense> expenses)
+        public void PrintReport(List<Expense> expenses, DateTime? dateTime=null)
         {
             printReportHeader();
             printExpenseEntries(expenses);
@@ -57,8 +57,8 @@ namespace expensereport_csharp
 
         private static void printTotalExpenses(int total, int mealExpenses)
         {
-            Console.WriteLine("Meal expenses: " + mealExpenses);
-            Console.WriteLine("Total expenses: " + total);
+            Console.WriteLine("Meal expenses:\t" + mealExpenses);
+            Console.WriteLine("Total expenses:\t" + total);
         }
 
         private static void printExpenseEntry(Expense expense)
