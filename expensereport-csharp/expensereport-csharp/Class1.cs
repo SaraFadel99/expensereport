@@ -24,12 +24,12 @@ namespace expensereport_csharp
 
         private static string generateReport(List<Expense> expenses)
         {
-          return printReportHeader(DateTime.Now)+ "\n"+
+          return generateReportHeader(DateTime.Now)+ "\n"+
           generateExpenseEntries(expenses)+
            generateTotalExpenses(expenses);
         }
 
-        private static string printReportHeader(DateTime time)
+        private static string generateReportHeader(DateTime time)
         {
             return "Expenses " +time ;
         }
