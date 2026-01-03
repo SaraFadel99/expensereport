@@ -19,7 +19,6 @@ namespace expensereport_csharp
         public void PrintReport(List<Expense> expenses, DateTime? dateTime=null)
         {
             printReportHeader();
-          //  printExpenseEntries(expenses);
             Console.WriteLine(generateExpenseEntries(expenses));
             Console.WriteLine(generateTotalExpenses(expenses));
         }
@@ -37,7 +36,6 @@ namespace expensereport_csharp
                 allEntriesExpenses += generateExpenseEntry(expense) + "\n";
             }
             return allEntriesExpenses.TrimEnd('\n');
-           // Console.WriteLine(allEntriesExpenses.TrimEnd('\n'));
         }
 
         private static string generateTotalExpenses(List<Expense> expenses)
@@ -61,12 +59,10 @@ namespace expensereport_csharp
 
         private static string  genTotalsEntries(int total, int mealExpenses)
         {
-            //string totalExpenses = "";
             string totalExpenses = "Meal expenses:\t" + mealExpenses + "\n";
             totalExpenses += "Total expenses:\t" + total;
             return totalExpenses;
-            //Console.WriteLine("Meal expenses:\t" + mealExpenses);
-          //  Console.WriteLine("Total expenses:\t" + total);
+        
         }
 
         private static string generateExpenseEntry(Expense expense)
