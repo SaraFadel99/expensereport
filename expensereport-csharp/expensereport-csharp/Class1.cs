@@ -17,18 +17,20 @@ namespace expensereport_csharp
 
     public class ExpenseReport
     {
+        private record ExpenseTypeConfig(string Name, int MaxAmount);
 
-        private static readonly Dictionary<ExpenseType, int> ExpenseTypeMaxAmounts = new Dictionary<ExpenseType, int>
-        {
-            { ExpenseType.DINNER, 5000 },
-            { ExpenseType.BREAKFAST, 1000 },
-            { ExpenseType.LUNCH,2000},
-            { ExpenseType.CAR_RENTAL, int.MaxValue }
-         };
+        private static readonly Dictionary<ExpenseType, ExpenseTypeConfig> ExpenseTypeConfigs =
+                    new Dictionary<ExpenseType, ExpenseTypeConfig>
+                {
+                    { ExpenseType.DINNER, new ExpenseTypeConfig("Dinner", 5000) },
+                    { ExpenseType.BREAKFAST, new ExpenseTypeConfig("Breakfast", 1000) },
+                    { ExpenseType.LUNCH, new ExpenseTypeConfig("Lunch", 2000) },
+                    { ExpenseType.CAR_RENTAL, new ExpenseTypeConfig("Car Rental", int.MaxValue) }
+                };
+
 
         public void PrintReport(List<Expense> expenses, DateTime? currentime=null)
         {
-            //  DateTime time = currentime != null ? currentime : DateTime.Now;
             Console.WriteLine( generateReport(expenses));
         }
 
@@ -85,7 +87,7 @@ namespace expensereport_csharp
         private static string generateExpenseEntry(Expense expense)
         {
             String expenseName = "";
-            expenseName = GetExpenseName(expense, expenseName);
+            expenseName = GetExpenseName(expense);
 
             string mealOverExpensesMarker = validateExpensesMarker(expense);
             string expenseEntryData = expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker;
@@ -105,31 +107,21 @@ namespace expensereport_csharp
 
         private static string validateExpensesMarker(Expense expense)
         {
-            string checkMarker = expense.type == ExpenseType.DINNER && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.DINNER] ||
-                                  expense.type == ExpenseType.BREAKFAST && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.BREAKFAST]||
-                                  expense.type == ExpenseType.LUNCH && expense.amount > ExpenseTypeMaxAmounts[ExpenseType.LUNCH] ? "X" : " ";
+            string checkMarker = expense.type == ExpenseType.DINNER && expense.amount > ExpenseTypeConfigs[ExpenseType.DINNER].MaxAmount ||
+                                  expense.type == ExpenseType.BREAKFAST && expense.amount > ExpenseTypeConfigs[ExpenseType.BREAKFAST].MaxAmount ||
+                                  expense.type == ExpenseType.LUNCH && expense.amount > ExpenseTypeConfigs[ExpenseType.LUNCH].MaxAmount ? "X" : " ";
             return checkMarker;
         }
 
-        private static string GetExpenseName(Expense expense, string expenseName)
+        private static string GetExpenseName(Expense expense)
         {
-            switch (expense.type)
-            {
-                case ExpenseType.DINNER:
-                    expenseName = "Dinner";
-                    break;
-                case ExpenseType.BREAKFAST:
-                    expenseName = "Breakfast";
-                    break;
-                case ExpenseType.LUNCH:
-                    expenseName = "Lunch";
-                    break;
-                case ExpenseType.CAR_RENTAL:
-                    expenseName = "Car Rental";
-                    break;
-            }
 
-            return expenseName;
+            var checkTypeExist = ExpenseTypeConfigs.TryGetValue(expense.type, out var config);
+            if (checkTypeExist)
+            {
+                return config.Name;
+            }
+            return "";
         }
     }
 }
